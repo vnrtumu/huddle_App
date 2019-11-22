@@ -16,6 +16,50 @@ import {
 import {StyleSheet} from 'react-native';
 
 export default class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  updateValue(text, field) {
+    if (field === 'email') {
+      this.setState({
+        email: text,
+      });
+    } else if (field === 'password') {
+      this.setState({
+        password: text,
+      });
+    }
+  }
+
+  displaValue() {
+    let collection = {};
+    collection.email = this.state.email;
+    collection.password = this.state.password;
+
+    var url = 'http://dev.api.huddle.aroha.co.in/api/login';
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(collection),
+    })
+      .then(response => response.json())
+      .then(response => {
+        console.warn(response);
+      })
+      .catch(error => {
+        console.warn(error);
+      });
+  }
+
   render() {
     return (
       <Container style={styles.loginContainer}>
@@ -30,7 +74,7 @@ export default class Login extends Component {
           <Right>
             <Button
               transparent
-              onPress={() => this.props.navigation.navigate('Login')}>
+              onPress={() => this.props.navigation.navigate('Forget')}>
               <Text>Forget Password</Text>
             </Button>
           </Right>
@@ -45,6 +89,7 @@ export default class Login extends Component {
                   placeholder="EMAIL"
                   placeholderTextColor="#fff"
                   style={{color: '#fff'}}
+                  onChangeText={text => this.updateValue(text, 'email')}
                 />
               </InputGroup>
             </ListItem>
@@ -56,13 +101,12 @@ export default class Login extends Component {
                   placeholderTextColor="#fff"
                   secureTextEntry
                   style={{color: '#fff'}}
+                  onChangeText={text => this.updateValue(text, 'password')}
                 />
               </InputGroup>
             </ListItem>
           </List>
-          <Button
-            style={styles.registerBtn}
-            onPress={() => this.props.navigation.navigate('Task')}>
+          <Button style={styles.registerBtn} onPress={() => this.displaValue()}>
             <Text style={styles.btnText}>Sign In</Text>
           </Button>
         </Content>
