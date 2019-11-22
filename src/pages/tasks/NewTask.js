@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {Text, Card, Button} from 'native-base';
 import TaskTable from '../../components/TaskTable';
 
@@ -13,7 +13,10 @@ export default class NewTask extends Component {
           <Card style={styles.addTaskbtncontiner}>
             <Button transparent>
               <Icon name="circle-with-plus" style={styles.addTaskbtn} />
-              <Text style={styles.addTasktext}>Create New Task</Text>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('Create')}>
+                <Text style={styles.addTasktext}>Create New Task</Text>
+              </TouchableOpacity>
             </Button>
           </Card>
         </View>

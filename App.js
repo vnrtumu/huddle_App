@@ -9,6 +9,8 @@ import Tasks from './src/pages/Tasks';
 import ForgetPass from './src/pages/ForgetPass';
 import VerifyOtp from './src/pages/VerifyOtp';
 
+import CreateNewTask from './src/pages/tasks/CreateNewTask';
+
 const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
@@ -17,6 +19,7 @@ const RootStack = createStackNavigator(
     Task: Tasks,
     Forget: ForgetPass,
     Reset: VerifyOtp,
+    Create: CreateNewTask,
   },
   {
     initialRouteName: 'Home',
